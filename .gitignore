@@ -1,0 +1,9 @@
+# nix files
+result
+
+# quarto files
+/.quarto/
+/_site/
+
+# other
+scratch/

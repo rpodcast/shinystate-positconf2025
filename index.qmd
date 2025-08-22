@@ -1,0 +1,23 @@
+---
+title: "Introducing shinystate"
+subtitle: "Launching Shiny collaboration to new heights"
+author: 
+  - name: Eric Nantz
+    affiliation:
+      - Statistician / Developer / Podcaster
+      - Eli Lilly & Company
+      - "{{< fa brands bluesky >}} [@rpodcast.bsky.social](https://bsky.app/profile/rpodcast.bsky.social)"
+      - "{{< fa brands mastodon >}} [@rpodcast@podcastindex.social](https://podcastindex.social/@rpodcast)"
+      - "{{< fa brands linkedin >}} [@eric-nantz](https://www.linkedin.com/in/eric-nantz-6621617/)"
+date: September 17, 2025
+format:
+  revealjs:
+    link-external-newwindow: true
+    menu: true
+    code-line-numbers: false
+    footer: "[rpodcast.github.io/shinystate-positconf2025/](https://rpodcast.github.io/shinystate-positconf2025/)"
+---
+
+## First Slide
+
+Nothing to see here yet
