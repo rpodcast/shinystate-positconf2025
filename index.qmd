@@ -18,6 +18,46 @@ format:
     footer: "[rpodcast.github.io/shinystate-positconf2025/](https://rpodcast.github.io/shinystate-positconf2025/)"
 ---
 
-## First Slide
+## Complex Applications
 
-Nothing to see here yet
+![](assets/img/large_app.png)
+
+## {background-image="assets/img/collaboration_meeting.jpg" background-size="contain"}
+
+::: {.absolute left="1%" top="0%" style="font-size:1.5em; padding: 0.1em 0.2em; background-color: rgba(255, 255, 255, .5); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+High-stakes Collaboration
+:::
+
+
+## Bookmarkable State
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+![](assets/img/bookmark_state_article.png)
+
+:::
+
+::: {.column width="30%"}
+
+* Vitally important for complex user interface applications
+* Not quite everything I needed ...
+
+:::
+
+::::
+
+
+## {background-image="assets/img/rpharma_joe_cheng.jpg" background-size="contain"}
+
+::: footer
+[R/Pharma 2018 - rinpharma.com](https://rinpharma.com)
+:::
+
+
+## The Big Idea Emerges: shinystate
+
+* Build upon existing Shiny Bookmarkable-state capability with key enhancements
+    * Granular Control
+    * Collaboration
