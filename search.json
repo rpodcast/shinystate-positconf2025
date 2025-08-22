@@ -1,9 +1,44 @@
 [
   {
-    "objectID": "index.html#first-slide",
-    "href": "index.html#first-slide",
+    "objectID": "index.html#complex-applications",
+    "href": "index.html#complex-applications",
     "title": "Introducing shinystate",
-    "section": "First Slide",
-    "text": "First Slide\nNothing to see here yet"
+    "section": "Complex Applications",
+    "text": "Complex Applications"
+  },
+  {
+    "objectID": "index.html#section",
+    "href": "index.html#section",
+    "title": "Introducing shinystate",
+    "section": "",
+    "text": "High-stakes Collaboration"
+  },
+  {
+    "objectID": "index.html#bookmarkable-state",
+    "href": "index.html#bookmarkable-state",
+    "title": "Introducing shinystate",
+    "section": "Bookmarkable State",
+    "text": "Bookmarkable State\n\n\n\n\n\nVitally important for complex user interface applications\nNot quite everything I needed …"
+  },
+  {
+    "objectID": "index.html#section-1",
+    "href": "index.html#section-1",
+    "title": "Introducing shinystate",
+    "section": "",
+    "text": "R/Pharma 2018 - rinpharma.com"
+  },
+  {
+    "objectID": "index.html#the-big-idea-emerges-shinystate",
+    "href": "index.html#the-big-idea-emerges-shinystate",
+    "title": "Introducing shinystate",
+    "section": "The Big Idea Emerges: shinystate",
+    "text": "The Big Idea Emerges: shinystate\n\nBuild upon existing Shiny Bookmarkable-state capability with key enhancements\n\nGranular Control\nCollaboration"
+  },
+  {
+    "objectID": "image_credits.html",
+    "href": "image_credits.html",
+    "title": "",
+    "section": "",
+    "text": "Collaboration image: https://www.piqsels.com/en/public-domain-photo-zknkx\nExample shiny app: https://shiny.posit.co/r/gallery/life-sciences/hospital-data-antimicrobial/"
   }
 ]
