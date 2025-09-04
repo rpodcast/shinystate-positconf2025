@@ -25,6 +25,9 @@ format:
 High-stakes Collaboration
 :::
 
+::: footer
+:::
+
 ::: {.notes}
 
 * Need the answer quickly, but with all of these voices it can be overwhelming
