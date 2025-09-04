@@ -7,6 +7,7 @@
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/quarto-contrib/qrcodejs-v1.0.0/qrcode.js"></script>
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.32">
@@ -32,7 +33,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-e609440bcddcfd5f521326867574c635.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -170,15 +171,30 @@ Eric Nantz
 </section>
 <section id="bookmarkable-state" class="slide level2">
 <h2>Bookmarkable State</h2>
+<div class="qrdiv">
+<div id="" class="qrcode"></div>
+<script type="text/javascript">
+(function() {
+  var script = document.currentScript;
+  var qrcode = script.previousElementSibling;
+  qrcode.qrcode = new QRCode(qrcode, {"colorDark":"#0011bb","colorLight":"#ffffff","height":"400","text":"https://shiny.posit.co/r/articles/share/bookmarking-state/","width":"400"});
+  script.remove();
+})();
+</script>
+    
+</div>
 <div class="columns">
 <div class="column" style="width:70%;">
-<p><img data-src="assets/img/bookmark_state_article.png"></p>
+<p><img data-src="assets/img/bookmark_state_article_blurred.png"></p>
 </div><div class="column" style="width:30%;">
 <ul>
 <li>Vitally important for complex user interface applications</li>
 <li>Not quite everything I needed …</li>
 </ul>
 </div></div>
+<div class="footer">
+<p><a href="https://shiny.posit.co/r/articles/share/bookmarking-state/">Bookmarkable State Introduction</a></p>
+</div>
 </section>
 <section id="section-1" class="slide level2" data-background-image="assets/img/rpharma_joe_cheng.jpg" data-background-size="contain">
 <h2></h2>
