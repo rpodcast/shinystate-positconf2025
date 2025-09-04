@@ -7,13 +7,6 @@
     "text": "Complex Applications"
   },
   {
-    "objectID": "index.html#section",
-    "href": "index.html#section",
-    "title": "Introducing shinystate",
-    "section": "",
-    "text": "High-stakes Collaboration"
-  },
-  {
     "objectID": "index.html#bookmarkable-state",
     "href": "index.html#bookmarkable-state",
     "title": "Introducing shinystate",
@@ -21,8 +14,8 @@
     "text": "Bookmarkable State\n\n\n\n    \n\n\n\n\n\n\nVitally important for complex user interface applications\nNot quite everything I needed …\n\n\n\nBookmarkable State Introduction"
   },
   {
-    "objectID": "index.html#section-1",
-    "href": "index.html#section-1",
+    "objectID": "index.html#section",
+    "href": "index.html#section",
     "title": "Introducing shinystate",
     "section": "",
     "text": "R/Pharma 2018 - rinpharma.com"
@@ -35,10 +28,45 @@
     "text": "The Big Idea Emerges: shinystate\n\nBuild upon existing Shiny Bookmarkable-state capability with key enhancements\n\nGranular Control\nCollaboration"
   },
   {
+    "objectID": "index.html#shinystate-1",
+    "href": "index.html#shinystate-1",
+    "title": "Introducing shinystate",
+    "section": "shinystate 1",
+    "text": "shinystate 1\nlibrary(shiny)\nlibrary(bslib)\nlibrary(shinystate)\n\nstorage &lt;- StorageClass$new()\n\nui &lt;- function(request) {\n  page_sidebar(\n    use_shinystate(),\n    # additoinal UI code\n  )\n}\n\n\nStorageClass$new() initializes the R6 class for your shinystate bookmark sessions\nBy default, a temporary directory is used to store bookmarkable state files\nuse_shinystate() injects required JavaScript bindings"
+  },
+  {
+    "objectID": "index.html#shinystate-2",
+    "href": "index.html#shinystate-2",
+    "title": "Introducing shinystate",
+    "section": "shinystate 2",
+    "text": "shinystate 2\nserver &lt;- function(input, output, session) {\n  storage$register_metadata()\n\n  # additonal server logic\n\n  observeEvent(input$bookmark, {\n    storage$snapshot()\n    showNotification(\"Session successfully saved\")\n  })\n\n  observeEvent(input$restore, {\n    session_df &lt;- storage$get_sessions()\n    storage$restore(tail(session_df$url, n = 1))\n  })\n}\n\n\nstorage$register_metadata() handles registering custom shiny::onBookmarked callback\nstorage$snapshot() performs the bookmarking snapshot, wrapping session$doBookmark(). But you get to include optional metadata as a named list!\nstorage$restore() loads the supplied bookmark state session by the custom url"
+  },
+  {
+    "objectID": "index.html#storage-and-sharing-pins",
+    "href": "index.html#storage-and-sharing-pins",
+    "title": "Introducing shinystate",
+    "section": "Storage and Sharing: {pins}",
+    "text": "Storage and Sharing: {pins}\n\n\n\n\n\nMore text here"
+  },
+  {
+    "objectID": "index.html#from-all-directions",
+    "href": "index.html#from-all-directions",
+    "title": "Introducing shinystate",
+    "section": "From All Directions",
+    "text": "From All Directions"
+  },
+  {
+    "objectID": "index.html#section-1",
+    "href": "index.html#section-1",
+    "title": "Introducing shinystate",
+    "section": "",
+    "text": "High-stakes Collaboration"
+  },
+  {
     "objectID": "image_credits.html",
     "href": "image_credits.html",
     "title": "",
     "section": "",
-    "text": "Collaboration image: https://www.piqsels.com/en/public-domain-photo-zknkx\nExample shiny app: https://shiny.posit.co/r/gallery/life-sciences/hospital-data-antimicrobial/"
+    "text": "Collaboration image: https://www.piqsels.com/en/public-domain-photo-zknkx\nExample shiny app: https://shiny.posit.co/r/gallery/life-sciences/hospital-data-antimicrobial/\nPuzzly sharing: https://en.m.wikipedia.org/wiki/File:Puzzly_sharing_%28from_licensing_tutorial%29.svg"
   }
 ]
