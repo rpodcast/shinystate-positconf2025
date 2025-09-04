@@ -23,12 +23,6 @@ format:
 
 ![](assets/img/large_app.png)
 
-## {background-image="assets/img/collaboration_meeting.jpg" background-size="contain"}
-
-::: {.absolute left="1%" top="0%" style="font-size:1.5em; padding: 0.1em 0.2em; background-color: rgba(255, 255, 255, .5); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
-High-stakes Collaboration
-:::
-
 
 ## Bookmarkable State
 
@@ -69,3 +63,81 @@ High-stakes Collaboration
 * Build upon existing Shiny Bookmarkable-state capability with key enhancements
     * Granular Control
     * Collaboration
+
+## `shinystate` 1
+
+```{.r code-line-numbers="|3|5|9"}
+library(shiny)
+library(bslib)
+library(shinystate)
+
+storage <- StorageClass$new()
+
+ui <- function(request) {
+  page_sidebar(
+    use_shinystate(),
+    # additoinal UI code
+  )
+}
+```
+
+::: {.notes}
+* `StorageClass$new()` initializes the R6 class for your shinystate bookmark sessions
+* By default, a temporary directory is used to store bookmarkable state files
+* `use_shinystate()` injects required JavaScript bindings
+:::
+
+## `shinystate` 2
+
+```{.r code-line-numbers="|2|6-9|11-14"}
+server <- function(input, output, session) {
+  storage$register_metadata()
+
+  # additonal server logic
+
+  observeEvent(input$bookmark, {
+    storage$snapshot()
+    showNotification("Session successfully saved")
+  })
+
+  observeEvent(input$restore, {
+    session_df <- storage$get_sessions()
+    storage$restore(tail(session_df$url, n = 1))
+  })
+}
+```
+
+::: {.notes}
+* `storage$register_metadata()` handles registering custom `shiny::onBookmarked` callback
+* `storage$snapshot()` performs the bookmarking snapshot, wrapping `session$doBookmark()`. But you get to include optional metadata as a named list!
+* `storage$restore()` loads the supplied bookmark state session by the custom url
+:::
+
+## Storage and Sharing: `{pins}`
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](assets/img/puzzly_sharing.svg)
+
+:::
+
+::: {.column width="50%"}
+
+* More text here
+
+:::
+
+::::
+
+## From All Directions {background-image="assets/img/roundabout_china_traffic.webp" background-size='70%'}
+
+# Backup
+
+## {background-image="assets/img/collaboration_meeting.jpg" background-size="contain"}
+
+::: {.absolute left="1%" top="0%" style="font-size:1.5em; padding: 0.1em 0.2em; background-color: rgba(255, 255, 255, .5); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+High-stakes Collaboration
+:::
+
