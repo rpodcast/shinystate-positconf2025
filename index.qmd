@@ -19,12 +19,30 @@ format:
     footer: "[rpodcast.github.io/shinystate-positconf2025/](https://rpodcast.github.io/shinystate-positconf2025/)"
 ---
 
+## {background-image="assets/img/collaboration_meeting.jpg" background-size="contain"}
+
+::: {.absolute left="1%" top="0%" style="font-size:1.5em; padding: 0.1em 0.2em; background-color: rgba(255, 255, 255, .5); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+High-stakes Collaboration
+:::
+
+::: {.notes}
+
+* Need the answer quickly, but with all of these voices it can be overwhelming
+* Get to the answer quickly, frantically toggling the settings
+:::
+
 ## Complex Applications
 
 ![](assets/img/large_app.png)
 
+::: {,notes}
 
-## Bookmarkable State
+* Complex apps with many inputs, toggles, that take more than one session to complete
+
+:::
+
+
+## 
 
 ::: {.qrdiv}
 {{< qrcode https://shiny.posit.co/r/articles/share/bookmarking-state/ width=400 height=400 colorDark='#0011bb' >}}
@@ -40,6 +58,7 @@ format:
 
 ::: {.column width="30%"}
 
+* Capture state of application and restore at later point
 * Vitally important for complex user interface applications
 * Not quite everything I needed ...
 
@@ -51,10 +70,53 @@ format:
 [Bookmarkable State Introduction](https://shiny.posit.co/r/articles/share/bookmarking-state/)
 :::
 
+::: {.notes}
+
+* Feature landed in version 0.14 in 2016
+* Two methods: URL bookmarking and server-side bookmarking
+* For smaller applications, this may be good enough
+
+:::
+
+---
+
+:::: {.columns}
+
+::: {.column width="50%" .fragment}
+
+### URL Method
+
+`myapp.com/?_inputs_&_n=200&text=abc&....`
+
+![](assets/img/long_receipt.jpg)
+
+:::
+
+::: {.column width="50%" .fragment}
+
+### Server-side Method
+
+Store as files in hosting server
+
+![](assets/img/storage_safe.svg)
+
+:::
+
+::::
+
+
 ## {background-image="assets/img/rpharma_joe_cheng.jpg" background-size="contain"}
 
 ::: footer
 [R/Pharma 2018 - rinpharma.com](https://rinpharma.com)
+:::
+
+::: {.notes}
+
+* Joe Cheng - keynote at R/Pharma 2018 (Using interactivity responsibly in pharma)
+* https://rinpharma.com/publication/rinpharma_32/
+* Very slight customizatoins to bookmarkable state that got my creative juices flowing
+
 :::
 
 
@@ -64,7 +126,7 @@ format:
     * Granular Control
     * Collaboration
 
-## `shinystate` 1
+## Enable `shinystate` (1) 
 
 ```{.r code-line-numbers="|3|5|9"}
 library(shiny)
@@ -87,7 +149,7 @@ ui <- function(request) {
 * `use_shinystate()` injects required JavaScript bindings
 :::
 
-## `shinystate` 2
+## Enable `shinystate` (2)
 
 ```{.r code-line-numbers="|2|6-9|11-14"}
 server <- function(input, output, session) {
@@ -113,7 +175,7 @@ server <- function(input, output, session) {
 * `storage$restore()` loads the supplied bookmark state session by the custom url
 :::
 
-## Storage and Sharing: `{pins}`
+## Storage and Sharing with `{pins}`
 
 :::: {.columns}
 
@@ -125,19 +187,33 @@ server <- function(input, output, session) {
 
 ::: {.column width="50%"}
 
-* More text here
+* Control **where** you store bookmarkable state files
+* Leverages [custom format](https://pins.rstudio.com/articles/managing-custom-formats.html) capability
 
 :::
 
 ::::
 
-## From All Directions {background-image="assets/img/roundabout_china_traffic.webp" background-size='70%'}
+```{.r}
+board <- pins::board_s3("awesome-bucket")
+storage <- StorageClass$new(board_sessions = board)
+```
+
+::: footer
+[pins.rstudio.com](https://pins.rstudio.com/)
+:::
+
+::: {.notes}
+
+Example pins board providers:
+* Posit Connect
+* S3 Object Storage (S3, Azure)
+* Google Drive / Dropbox / OneDrive
+* Online site (GitHub repo)
+:::
+
+
 
 # Backup
 
-## {background-image="assets/img/collaboration_meeting.jpg" background-size="contain"}
-
-::: {.absolute left="1%" top="0%" style="font-size:1.5em; padding: 0.1em 0.2em; background-color: rgba(255, 255, 255, .5); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
-High-stakes Collaboration
-:::
-
+## From All Directions {background-image="assets/img/roundabout_china_traffic.webp" background-size='70%'}
