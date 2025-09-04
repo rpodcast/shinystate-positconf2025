@@ -225,12 +225,39 @@ Eric Nantz
 
   <p class="date">2025-09-17</p>
 </section>
+<section id="section" class="slide level2" data-background-image="assets/img/collaboration_meeting.jpg" data-background-size="contain">
+<h2></h2>
+<div class="absolute" style="font-size:1.5em; padding: 0.1em 0.2em; background-color: rgba(255, 255, 255, .5); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;top: 0%; left: 1%; ">
+<p>High-stakes Collaboration</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Need the answer quickly, but with all of these voices it can be overwhelming</li>
+<li>Get to the answer quickly, frantically toggling the settings</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="complex-applications" class="slide level2">
 <h2>Complex Applications</h2>
 
-<img data-src="assets/img/large_app.png" class="r-stretch"></section>
-<section id="bookmarkable-state" class="slide level2">
-<h2>Bookmarkable State</h2>
+<img data-src="assets/img/large_app.png" class="r-stretch"><div class="{,notes}">
+<ul>
+<li>Complex apps with many inputs, toggles, that take more than one session to complete</li>
+</ul>
+</div>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
 <div class="qrdiv">
 <div id="" class="qrcode"></div>
 <script type="text/javascript">
@@ -248,6 +275,7 @@ Eric Nantz
 <p><img data-src="assets/img/bookmark_state_article_blurred.png"></p>
 </div><div class="column" style="width:30%;">
 <ul>
+<li>Capture state of application and restore at later point</li>
 <li>Vitally important for complex user interface applications</li>
 <li>Not quite everything I needed …</li>
 </ul>
@@ -255,12 +283,59 @@ Eric Nantz
 <div class="footer">
 <p><a href="https://shiny.posit.co/r/articles/share/bookmarking-state/">Bookmarkable State Introduction</a></p>
 </div>
+<aside class="notes">
+<ul>
+<li>Feature landed in version 0.14 in 2016</li>
+<li>Two methods: URL bookmarking and server-side bookmarking</li>
+<li>For smaller applications, this may be good enough</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="section" class="slide level2" data-background-image="assets/img/rpharma_joe_cheng.jpg" data-background-size="contain">
+<section class="slide level2">
+
+<div class="columns">
+<div class="column fragment" style="width:50%;">
+<h3 id="url-method">URL Method</h3>
+<p><code>myapp.com/?_inputs_&amp;_n=200&amp;text=abc&amp;....</code></p>
+<p><img data-src="assets/img/long_receipt.jpg"></p>
+</div><div class="column fragment" style="width:50%;">
+<h3 id="server-side-method">Server-side Method</h3>
+<p>Store as files in hosting server</p>
+<p><img data-src="assets/img/storage_safe.svg"></p>
+</div></div>
+</section>
+<section id="section-2" class="slide level2" data-background-image="assets/img/rpharma_joe_cheng.jpg" data-background-size="contain">
 <h2></h2>
 <div class="footer">
 <p><a href="https://rinpharma.com">R/Pharma 2018 - rinpharma.com</a></p>
 </div>
+<aside class="notes">
+<ul>
+<li>Joe Cheng - keynote at R/Pharma 2018 (Using interactivity responsibly in pharma)</li>
+<li>https://rinpharma.com/publication/rinpharma_32/</li>
+<li>Very slight customizatoins to bookmarkable state that got my creative juices flowing</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="the-big-idea-emerges-shinystate" class="slide level2">
 <h2>The Big Idea Emerges: shinystate</h2>
@@ -272,8 +347,8 @@ Eric Nantz
 </ul></li>
 </ul>
 </section>
-<section id="shinystate-1" class="slide level2">
-<h2><code>shinystate</code> 1</h2>
+<section id="enable-shinystate-1" class="slide level2">
+<h2>Enable <code>shinystate</code> (1)</h2>
 <div class="sourceCode" id="cb1" data-code-line-numbers="|3|5|9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(shiny)</span>
 <span id="cb1-2"><a></a><span class="fu">library</span>(bslib)</span>
 <span id="cb1-3"><a></a><span class="fu">library</span>(shinystate)</span>
@@ -304,8 +379,8 @@ Eric Nantz
           display:block!important;
       }</style></aside>
 </section>
-<section id="shinystate-2" class="slide level2">
-<h2><code>shinystate</code> 2</h2>
+<section id="enable-shinystate-2" class="slide level2">
+<h2>Enable <code>shinystate</code> (2)</h2>
 <div class="sourceCode" id="cb2" data-code-line-numbers="|2|6-9|11-14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
 <span id="cb2-2"><a></a>  storage<span class="sc">$</span><span class="fu">register_metadata</span>()</span>
 <span id="cb2-3"><a></a></span>
@@ -339,30 +414,43 @@ Eric Nantz
           display:block!important;
       }</style></aside>
 </section>
-<section id="storage-and-sharing-pins" class="slide level2">
-<h2>Storage and Sharing: <code>{pins}</code></h2>
+<section id="storage-and-sharing-with-pins" class="slide level2">
+<h2>Storage and Sharing with <code>{pins}</code></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img data-src="assets/img/puzzly_sharing.svg"></p>
 </div><div class="column" style="width:50%;">
 <ul>
-<li>More text here</li>
+<li>Control <strong>where</strong> you store bookmarkable state files</li>
+<li>Leverages <a href="https://pins.rstudio.com/articles/managing-custom-formats.html">custom format</a> capability</li>
 </ul>
 </div></div>
-</section>
-<section id="from-all-directions" class="slide level2" data-background-image="assets/img/roundabout_china_traffic.webp" data-background-size="70%">
-<h2>From All Directions</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>board <span class="ot">&lt;-</span> pins<span class="sc">::</span><span class="fu">board_s3</span>(<span class="st">"awesome-bucket"</span>)</span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>storage <span class="ot">&lt;-</span> StorageClass<span class="sc">$</span><span class="fu">new</span>(<span class="at">board_sessions =</span> board)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="footer">
+<p><a href="https://pins.rstudio.com/">pins.rstudio.com</a></p>
+</div>
+<aside class="notes">
+<p>Example pins board providers: * Posit Connect * S3 Object Storage (S3, Azure) * Google Drive / Dropbox / OneDrive * Online site (GitHub repo)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section>
 <section id="backup" class="title-slide slide level1 center">
 <h1>Backup</h1>
 
 </section>
-<section id="section-1" class="slide level2" data-background-image="assets/img/collaboration_meeting.jpg" data-background-size="contain">
-<h2></h2>
-<div class="absolute" style="font-size:1.5em; padding: 0.1em 0.2em; background-color: rgba(255, 255, 255, .5); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;top: 0%; left: 1%; ">
-<p>High-stakes Collaboration</p>
-</div>
+<section id="from-all-directions" class="slide level2" data-background-image="assets/img/roundabout_china_traffic.webp" data-background-size="70%">
+<h2>From All Directions</h2>
 
 
 </section></section>
