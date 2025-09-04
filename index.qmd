@@ -15,6 +15,7 @@ format:
     link-external-newwindow: true
     menu: true
     code-line-numbers: false
+    theme: [default, custom.scss]
     footer: "[rpodcast.github.io/shinystate-positconf2025/](https://rpodcast.github.io/shinystate-positconf2025/)"
 ---
 
@@ -31,11 +32,15 @@ High-stakes Collaboration
 
 ## Bookmarkable State
 
+::: {.qrdiv}
+{{< qrcode https://shiny.posit.co/r/articles/share/bookmarking-state/ width=400 height=400 colorDark='#0011bb' >}}
+:::
+
 :::: {.columns}
 
 ::: {.column width="70%"}
 
-![](assets/img/bookmark_state_article.png)
+![](assets/img/bookmark_state_article_blurred.png)
 
 :::
 
@@ -48,6 +53,9 @@ High-stakes Collaboration
 
 ::::
 
+::: footer
+[Bookmarkable State Introduction](https://shiny.posit.co/r/articles/share/bookmarking-state/)
+:::
 
 ## {background-image="assets/img/rpharma_joe_cheng.jpg" background-size="contain"}
 
