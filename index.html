@@ -8,6 +8,8 @@
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/quarto-contrib/qrcodejs-v1.0.0/qrcode.js"></script>
+<script src="site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.32">
@@ -253,11 +255,25 @@ Eric Nantz
 <section id="complex-applications" class="slide level2">
 <h2>Complex Applications</h2>
 
-<img data-src="assets/img/large_app.png" class="r-stretch"><div class="{,notes}">
+<img data-src="assets/img/large_app.png" class="r-stretch"><div class="footer">
+<p><a href="https://shiny.posit.co/r/gallery/life-sciences/hospital-data-antimicrobial/">RadaR Application</a></p>
+</div>
+<aside class="notes">
 <ul>
+<li>Radar app (Christian Luz)</li>
 <li>Complex apps with many inputs, toggles, that take more than one session to complete</li>
 </ul>
-</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="section-1" class="slide level2">
 <h2></h2>
@@ -279,7 +295,6 @@ Eric Nantz
 </div><div class="column" style="width:30%;">
 <ul>
 <li>Capture state of application and restore at later point</li>
-<li>Vitally important for complex user interface applications</li>
 <li>Not quite everything I needed …</li>
 </ul>
 </div></div>
@@ -341,19 +356,19 @@ Eric Nantz
           display:block!important;
       }</style></aside>
 </section>
-<section id="the-big-idea-emerges-shinystate" class="slide level2">
-<h2>The Big Idea Emerges: shinystate</h2>
+<section id="enter-shinystate" class="slide level2">
+<h2>Enter <code>{shinystate}</code> <img data-src="assets/img/hex.png" style="vertical-align: middle;;width:10.0%"></h2>
+<p>Supercharge Shiny’s Bookmarkable-state capability with key enhancements</p>
 <ul>
-<li>Build upon existing Shiny Bookmarkable-state capability with key enhancements
-<ul>
-<li>Granular Control</li>
-<li>Collaboration</li>
-</ul></li>
+<li>Granular control over storage location</li>
+<li>Capability to add optional metadata</li>
+<li>Object-oriented methods with <code>{R6}</code></li>
 </ul>
 </section>
 <section id="enable-shinystate" class="slide level2">
 <h2>Enable <code>shinystate</code></h2>
-<div class="sourceCode" id="cb1" data-code-line-numbers="|3|5|9|15|"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(shiny)</span>
+<div style="font-size: 1.1em">
+<div class="sourceCode" id="cb1" data-code-line-numbers="|3|5|7,9|15|19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(shiny)</span>
 <span id="cb1-2"><a></a><span class="fu">library</span>(bslib)</span>
 <span id="cb1-3"><a></a><span class="fu">library</span>(shinystate)</span>
 <span id="cb1-4"><a></a></span>
@@ -369,7 +384,10 @@ Eric Nantz
 <span id="cb1-14"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
 <span id="cb1-15"><a></a>  storage<span class="sc">$</span><span class="fu">register_metadata</span>()</span>
 <span id="cb1-16"><a></a>  <span class="co"># additonal server logic</span></span>
-<span id="cb1-17"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-17"><a></a>}</span>
+<span id="cb1-18"><a></a></span>
+<span id="cb1-19"><a></a><span class="fu">shinyApp</span>(ui, server, <span class="at">enableBookmarking =</span> <span class="st">"server"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <aside class="notes">
 <ul>
 <li><code>StorageClass$new()</code> initializes the R6 class for your shinystate bookmark sessions</li>
@@ -389,8 +407,8 @@ Eric Nantz
           display:block!important;
       }</style></aside>
 </section>
-<section id="save-state" class="slide level2">
-<h2>Save State</h2>
+<section id="saving-bookmarkable-state" class="slide level2">
+<h2>Saving Bookmarkable State 💾</h2>
 <div class="fragment" style="font-size: 1.4em">
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>storage<span class="sc">$</span><span class="fu">snapshot</span>(</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">metadata =</span> <span class="fu">list</span>(</span>
@@ -455,8 +473,8 @@ Eric Nantz
           display:block!important;
       }</style></aside>
 </section>
-<section id="restore-state" class="slide level2">
-<h2>Restore State</h2>
+<section id="restoring-bookmarkable-state" class="slide level2">
+<h2>Restoring Bookmarkable State 📂</h2>
 <div style="font-size: 1.4em">
 <div class="sourceCode" id="cb3" data-code-line-numbers="|1|2-4|6|"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>session_df <span class="ot">&lt;-</span> storage<span class="sc">$</span><span class="fu">get_sessions</span>()</span>
 <span id="cb3-2"><a></a>url <span class="ot">&lt;-</span> session_df <span class="sc">|&gt;</span></span>
@@ -482,7 +500,7 @@ Eric Nantz
       }</style></aside>
 </section>
 <section id="storage-with-pins" class="slide level2">
-<h2>Storage with <code>{pins}</code></h2>
+<h2>Storage with <code>{pins}</code> <img data-src="assets/img/pins.png" style="vertical-align: middle;;width:8.0%"></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img data-src="assets/img/puzzly_sharing.svg"></p>
@@ -513,30 +531,83 @@ Eric Nantz
           display:block!important;
       }</style></aside>
 </section>
+<section id="power-up-sharing-sessions" class="slide level2">
+<h2>Power-up: Sharing Sessions</h2>
+<div class="columns">
+<div class="column fragment" style="width:50%;">
+<div style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/dr_light.png" style="width:50.0%"></p>
+<figcaption>Dr.&nbsp;Light</figcaption>
+</figure>
+</div>
+</div>
+</div><div class="column fragment" style="width:50%;">
+<div style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/dr_wily.png" style="width:70.0%"></p>
+<figcaption>Dr.&nbsp;Wily</figcaption>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+
+<video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="assets/img/megaman_app_light.mp4"></video>
+</section>
+<section class="slide level2">
+
+<video id="video_shortcode_videojs_video2" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="assets/img/megaman_app_wily.mp4"></video>
+</section>
+<section id="additional-benefits" class="slide level2">
+<h2>Additional Benefits 🤔</h2>
+<ul>
+<li>Custom processing of session state artifacts</li>
+<li>Traceability <em>within</em> and <em>across</em> user sessions</li>
+<li>Inputs to automated reporting</li>
+</ul>
+</section>
+<section id="current-and-future-work" class="slide level2">
+<h2>Current and Future Work</h2>
+<p>✅ Example applications from basic usage to Shiny modules</p>
+<p>✅ Package website with interactive apps powered by WebAssembly!</p>
+<p>⏳ CRAN submission (in queue)</p>
+<p>🛠 Compatability with <code>{golem}</code> and <code>{rhino}</code></p>
+</section>
+<section id="relief-in-sight" class="slide level2" data-background-image="assets/img/roundabout_china_traffic.webp" data-background-size="60%">
+<h2>Relief in Sight</h2>
+</section>
 <section id="thank-you" class="slide level2">
 <h2>Thank You!</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:60%;">
+<div style="font-size: 0.7em">
+<p>📦 <strong>Documentation</strong>:</p>
+<p><a href="https://rpodcast.github.io/shinystate/">rpodcast.github.io/shinystate</a></p>
+<p>📦 <strong>GitHub Repository</strong>:</p>
+<p><a href="https://github.com/rpodcast/shinystate">github.com/rpodcast/shinystate</a></p>
+<p>🏡 <strong>Slides</strong>:</p>
+<p><a href="https://rpodcast.github.io/shinystate-positconf2025/">rpodcast.github.io/shinystate-positconf2025</a></p>
+</div>
+<p><img data-src="assets/img/rpodcast-hexagon.png" style="width:20.0%"></p>
+</div><div class="column" style="width:40%;">
+<div style="font-size: 0.7em">
+<p><strong>Let’s Connect!</strong></p>
 <p><i class="fa-solid fa-microphone fa-xl" aria-label="microphone"></i> <a href="https://r-podcast.org">R-Podcast</a></p>
 <p><i class="fa-solid fa-microphone fa-xl" aria-label="microphone"></i> <a href="https://serve.podhome.fm/r-weekly-highlights">R Weekly Highlights</a></p>
 <p><i class="fa-solid fa-display" aria-label="display"></i> <a href="https://shinydevseries.com">Shiny Developer Series</a></p>
 <p><i class="fa-brands fa-mastodon fa-xl" aria-label="mastodon"></i> <a href="https://podcastindex.org/@rpodcast">@rpodcast</a></p>
+<p><i class="fa-brands fa-bluesky fa-xl" aria-label="bluesky"></i> <a href="https://bsky.app/profile/rpodcast.bsky.social">@rpodcast</a></p>
 <p><i class="fa-brands fa-linkedin fa-xl" aria-label="linkedin"></i> <a href="https://www.linkedin.com/in/eric-nantz-6621617/">eric-nantz</a></p>
 <p><i class="fa-brands fa-github fa-xl" aria-label="github"></i> <a href="https://github.com/rpodcast/">rpodcast</a></p>
-</div><div class="column" style="width:50%;">
-<p><img data-src="assets/img/rpodcast-hexagon.png"></p>
+</div>
 </div></div>
-</section>
-<section>
-<section id="backup" class="title-slide slide level1 center">
-<h1>Backup</h1>
+
 
 </section>
-<section id="from-all-directions" class="slide level2" data-background-image="assets/img/roundabout_china_traffic.webp" data-background-size="60%">
-<h2>From All Directions</h2>
-
-
-</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -661,7 +732,7 @@ Eric Nantz
         showNotes: false,
 
         // Global override for autoplaying embedded media (null/true/false)
-        autoPlayMedia: null,
+        autoPlayMedia: true,
 
         // Global override for preloading lazy-loaded iframes (null/true/false)
         preloadIframes: null,
@@ -962,6 +1033,8 @@ Eric Nantz
         }
       });
       </script>
+    <script>videojs(video_shortcode_videojs_video1);</script>
+    <script>videojs(video_shortcode_videojs_video2);</script>
     
 
 </body></html>
