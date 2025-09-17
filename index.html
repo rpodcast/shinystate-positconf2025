@@ -310,11 +310,12 @@ Eric Nantz
 <div class="column fragment" style="width:50%;">
 <h3 id="url-method">URL Method</h3>
 <p><code>myapp.com/?_inputs_&amp;_n=200&amp;text=abc&amp;....</code></p>
-<p><img data-src="assets/img/long_receipt.jpg"></p>
+<p><img data-src="assets/img/metroid_password.webp" style="width:120.0%"></p>
 </div><div class="column fragment" style="width:50%;">
 <h3 id="server-side-method">Server-side Method</h3>
 <p>Store as files in hosting server</p>
-<p><img data-src="assets/img/storage_safe.svg"></p>
+<p><br></p>
+<p><img data-src="assets/img/storage_safe.svg" style="width:80.0%"></p>
 </div></div>
 </section>
 <section id="section-2" class="slide level2" data-background-image="assets/img/rpharma_joe_cheng.jpg" data-background-size="contain">
@@ -350,9 +351,9 @@ Eric Nantz
 </ul></li>
 </ul>
 </section>
-<section id="enable-shinystate-1" class="slide level2">
-<h2>Enable <code>shinystate</code> (1)</h2>
-<div class="sourceCode" id="cb1" data-code-line-numbers="|3|5|9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(shiny)</span>
+<section id="enable-shinystate" class="slide level2">
+<h2>Enable <code>shinystate</code></h2>
+<div class="sourceCode" id="cb1" data-code-line-numbers="|3|5|9|15|"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(shiny)</span>
 <span id="cb1-2"><a></a><span class="fu">library</span>(bslib)</span>
 <span id="cb1-3"><a></a><span class="fu">library</span>(shinystate)</span>
 <span id="cb1-4"><a></a></span>
@@ -361,14 +362,20 @@ Eric Nantz
 <span id="cb1-7"><a></a>ui <span class="ot">&lt;-</span> <span class="cf">function</span>(request) {</span>
 <span id="cb1-8"><a></a>  <span class="fu">page_sidebar</span>(</span>
 <span id="cb1-9"><a></a>    <span class="fu">use_shinystate</span>(),</span>
-<span id="cb1-10"><a></a>    <span class="co"># additoinal UI code</span></span>
+<span id="cb1-10"><a></a>    <span class="co"># additional UI code</span></span>
 <span id="cb1-11"><a></a>  )</span>
-<span id="cb1-12"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a></a>}</span>
+<span id="cb1-13"><a></a></span>
+<span id="cb1-14"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb1-15"><a></a>  storage<span class="sc">$</span><span class="fu">register_metadata</span>()</span>
+<span id="cb1-16"><a></a>  <span class="co"># additonal server logic</span></span>
+<span id="cb1-17"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
 <ul>
 <li><code>StorageClass$new()</code> initializes the R6 class for your shinystate bookmark sessions</li>
 <li>By default, a temporary directory is used to store bookmarkable state files</li>
 <li><code>use_shinystate()</code> injects required JavaScript bindings</li>
+<li><code>storage$register_metadata()</code> handles registering custom <code>shiny::onBookmarked</code> callback</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -382,27 +389,84 @@ Eric Nantz
           display:block!important;
       }</style></aside>
 </section>
-<section id="enable-shinystate-2" class="slide level2">
-<h2>Enable <code>shinystate</code> (2)</h2>
-<div class="sourceCode" id="cb2" data-code-line-numbers="|2|6-9|11-14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb2-2"><a></a>  storage<span class="sc">$</span><span class="fu">register_metadata</span>()</span>
-<span id="cb2-3"><a></a></span>
-<span id="cb2-4"><a></a>  <span class="co"># additonal server logic</span></span>
-<span id="cb2-5"><a></a></span>
-<span id="cb2-6"><a></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>bookmark, {</span>
-<span id="cb2-7"><a></a>    storage<span class="sc">$</span><span class="fu">snapshot</span>()</span>
-<span id="cb2-8"><a></a>    <span class="fu">showNotification</span>(<span class="st">"Session successfully saved"</span>)</span>
-<span id="cb2-9"><a></a>  })</span>
-<span id="cb2-10"><a></a></span>
-<span id="cb2-11"><a></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>restore, {</span>
-<span id="cb2-12"><a></a>    session_df <span class="ot">&lt;-</span> storage<span class="sc">$</span><span class="fu">get_sessions</span>()</span>
-<span id="cb2-13"><a></a>    storage<span class="sc">$</span><span class="fu">restore</span>(<span class="fu">tail</span>(session_df<span class="sc">$</span>url, <span class="at">n =</span> <span class="dv">1</span>))</span>
-<span id="cb2-14"><a></a>  })</span>
-<span id="cb2-15"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="save-state" class="slide level2">
+<h2>Save State</h2>
+<div class="fragment" style="font-size: 1.4em">
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>storage<span class="sc">$</span><span class="fu">snapshot</span>(</span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">metadata =</span> <span class="fu">list</span>(</span>
+<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">save_name =</span> <span class="st">"exploring"</span>,</span>
+<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">timestamp =</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-6"><a aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div style="font-size: 0.7em">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">url</th>
+<th style="text-align: left;">save_name</th>
+<th style="text-align: left;">timestamp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">?<em>state_id</em>=7c61d102e8b68a61</td>
+<td style="text-align: left;">exploring</td>
+<td style="text-align: left;">2025-09-16 13:14:07</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">?<em>state_id</em>=92af5e9aeae226c7</td>
+<td style="text-align: left;">refine</td>
+<td style="text-align: left;">2025-09-16 13:26:05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">?<em>state_id</em>=2b0a78b6da5f2f65</td>
+<td style="text-align: left;">finalize</td>
+<td style="text-align: left;">2025-09-16 13:41:12</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment" style="font-size: 0.8em">
+<ul>
+<li><code>url</code>: Mapping to unique ID of session</li>
+<li>Optional: list of metadata values</li>
+</ul>
+</div>
 <aside class="notes">
 <ul>
-<li><code>storage$register_metadata()</code> handles registering custom <code>shiny::onBookmarked</code> callback</li>
 <li><code>storage$snapshot()</code> performs the bookmarking snapshot, wrapping <code>session$doBookmark()</code>. But you get to include optional metadata as a named list!</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="restore-state" class="slide level2">
+<h2>Restore State</h2>
+<div style="font-size: 1.4em">
+<div class="sourceCode" id="cb3" data-code-line-numbers="|1|2-4|6|"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>session_df <span class="ot">&lt;-</span> storage<span class="sc">$</span><span class="fu">get_sessions</span>()</span>
+<span id="cb3-2"><a></a>url <span class="ot">&lt;-</span> session_df <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(save_name <span class="sc">==</span> <span class="st">"exploring"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a></a>  dplyr<span class="sc">::</span><span class="fu">pull</span>(url)</span>
+<span id="cb3-5"><a></a></span>
+<span id="cb3-6"><a></a>storage<span class="sc">$</span><span class="fu">restore</span>(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<ul>
 <li><code>storage$restore()</code> loads the supplied bookmark state session by the custom url</li>
 </ul>
 <style type="text/css">
@@ -417,8 +481,8 @@ Eric Nantz
           display:block!important;
       }</style></aside>
 </section>
-<section id="storage-and-sharing-with-pins" class="slide level2">
-<h2>Storage and Sharing with <code>{pins}</code></h2>
+<section id="storage-with-pins" class="slide level2">
+<h2>Storage with <code>{pins}</code></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img data-src="assets/img/puzzly_sharing.svg"></p>
@@ -428,8 +492,10 @@ Eric Nantz
 <li>Leverages <a href="https://pins.rstudio.com/articles/managing-custom-formats.html">custom format</a> capability</li>
 </ul>
 </div></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>board <span class="ot">&lt;-</span> pins<span class="sc">::</span><span class="fu">board_s3</span>(<span class="st">"awesome-bucket"</span>)</span>
-<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>storage <span class="ot">&lt;-</span> StorageClass<span class="sc">$</span><span class="fu">new</span>(<span class="at">board_sessions =</span> board)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment" style="font-size: 1.5em">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>board <span class="ot">&lt;-</span> pins<span class="sc">::</span><span class="fu">board_s3</span>(<span class="st">"awesome-bucket"</span>)</span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>storage <span class="ot">&lt;-</span> StorageClass<span class="sc">$</span><span class="fu">new</span>(<span class="at">board_sessions =</span> board)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="footer">
 <p><a href="https://pins.rstudio.com/">pins.rstudio.com</a></p>
 </div>
@@ -447,12 +513,26 @@ Eric Nantz
           display:block!important;
       }</style></aside>
 </section>
+<section id="thank-you" class="slide level2">
+<h2>Thank You!</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><i class="fa-solid fa-microphone fa-xl" aria-label="microphone"></i> <a href="https://r-podcast.org">R-Podcast</a></p>
+<p><i class="fa-solid fa-microphone fa-xl" aria-label="microphone"></i> <a href="https://serve.podhome.fm/r-weekly-highlights">R Weekly Highlights</a></p>
+<p><i class="fa-solid fa-display" aria-label="display"></i> <a href="https://shinydevseries.com">Shiny Developer Series</a></p>
+<p><i class="fa-brands fa-mastodon fa-xl" aria-label="mastodon"></i> <a href="https://podcastindex.org/@rpodcast">@rpodcast</a></p>
+<p><i class="fa-brands fa-linkedin fa-xl" aria-label="linkedin"></i> <a href="https://www.linkedin.com/in/eric-nantz-6621617/">eric-nantz</a></p>
+<p><i class="fa-brands fa-github fa-xl" aria-label="github"></i> <a href="https://github.com/rpodcast/">rpodcast</a></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/img/rpodcast-hexagon.png"></p>
+</div></div>
+</section>
 <section>
 <section id="backup" class="title-slide slide level1 center">
 <h1>Backup</h1>
 
 </section>
-<section id="from-all-directions" class="slide level2" data-background-image="assets/img/roundabout_china_traffic.webp" data-background-size="70%">
+<section id="from-all-directions" class="slide level2" data-background-image="assets/img/roundabout_china_traffic.webp" data-background-size="60%">
 <h2>From All Directions</h2>
 
 
@@ -672,6 +752,44 @@ Eric Nantz
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

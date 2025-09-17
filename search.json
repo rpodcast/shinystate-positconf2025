@@ -35,25 +35,39 @@
     "text": "The Big Idea Emerges: shinystate\n\nBuild upon existing Shiny Bookmarkable-state capability with key enhancements\n\nGranular Control\nCollaboration"
   },
   {
-    "objectID": "index.html#enable-shinystate-1",
-    "href": "index.html#enable-shinystate-1",
+    "objectID": "index.html#enable-shinystate",
+    "href": "index.html#enable-shinystate",
     "title": "Introducing shinystate",
-    "section": "Enable shinystate (1)",
-    "text": "Enable shinystate (1)\nlibrary(shiny)\nlibrary(bslib)\nlibrary(shinystate)\n\nstorage &lt;- StorageClass$new()\n\nui &lt;- function(request) {\n  page_sidebar(\n    use_shinystate(),\n    # additoinal UI code\n  )\n}\n\n\nStorageClass$new() initializes the R6 class for your shinystate bookmark sessions\nBy default, a temporary directory is used to store bookmarkable state files\nuse_shinystate() injects required JavaScript bindings"
+    "section": "Enable shinystate",
+    "text": "Enable shinystate\nlibrary(shiny)\nlibrary(bslib)\nlibrary(shinystate)\n\nstorage &lt;- StorageClass$new()\n\nui &lt;- function(request) {\n  page_sidebar(\n    use_shinystate(),\n    # additional UI code\n  )\n}\n\nserver &lt;- function(input, output, session) {\n  storage$register_metadata()\n  # additonal server logic\n}\n\n\nStorageClass$new() initializes the R6 class for your shinystate bookmark sessions\nBy default, a temporary directory is used to store bookmarkable state files\nuse_shinystate() injects required JavaScript bindings\nstorage$register_metadata() handles registering custom shiny::onBookmarked callback"
   },
   {
-    "objectID": "index.html#enable-shinystate-2",
-    "href": "index.html#enable-shinystate-2",
+    "objectID": "index.html#save-state",
+    "href": "index.html#save-state",
     "title": "Introducing shinystate",
-    "section": "Enable shinystate (2)",
-    "text": "Enable shinystate (2)\nserver &lt;- function(input, output, session) {\n  storage$register_metadata()\n\n  # additonal server logic\n\n  observeEvent(input$bookmark, {\n    storage$snapshot()\n    showNotification(\"Session successfully saved\")\n  })\n\n  observeEvent(input$restore, {\n    session_df &lt;- storage$get_sessions()\n    storage$restore(tail(session_df$url, n = 1))\n  })\n}\n\n\nstorage$register_metadata() handles registering custom shiny::onBookmarked callback\nstorage$snapshot() performs the bookmarking snapshot, wrapping session$doBookmark(). But you get to include optional metadata as a named list!\nstorage$restore() loads the supplied bookmark state session by the custom url"
+    "section": "Save State",
+    "text": "Save State\n\nstorage$snapshot(\n  metadata = list(\n    save_name = \"exploring\",\n    timestamp = Sys.time()\n  )\n)\n\n\n\n\n\n\n\n\nurl\nsave_name\ntimestamp\n\n\n\n\n?state_id=7c61d102e8b68a61\nexploring\n2025-09-16 13:14:07\n\n\n?state_id=92af5e9aeae226c7\nrefine\n2025-09-16 13:26:05\n\n\n?state_id=2b0a78b6da5f2f65\nfinalize\n2025-09-16 13:41:12\n\n\n\n\n\n\n\n\n\nurl: Mapping to unique ID of session\nOptional: list of metadata values\n\n\n\n\nstorage$snapshot() performs the bookmarking snapshot, wrapping session$doBookmark(). But you get to include optional metadata as a named list!"
   },
   {
-    "objectID": "index.html#storage-and-sharing-with-pins",
-    "href": "index.html#storage-and-sharing-with-pins",
+    "objectID": "index.html#restore-state",
+    "href": "index.html#restore-state",
     "title": "Introducing shinystate",
-    "section": "Storage and Sharing with {pins}",
-    "text": "Storage and Sharing with {pins}\n\n\n\n\n\nControl where you store bookmarkable state files\nLeverages custom format capability\n\n\nboard &lt;- pins::board_s3(\"awesome-bucket\")\nstorage &lt;- StorageClass$new(board_sessions = board)\n\npins.rstudio.com\n\n\nExample pins board providers: * Posit Connect * S3 Object Storage (S3, Azure) * Google Drive / Dropbox / OneDrive * Online site (GitHub repo)"
+    "section": "Restore State",
+    "text": "Restore State\n\nsession_df &lt;- storage$get_sessions()\nurl &lt;- session_df |&gt;\n  dplyr::filter(save_name == \"exploring\") |&gt;\n  dplyr::pull(url)\n\nstorage$restore(url)\n\n\n\nstorage$restore() loads the supplied bookmark state session by the custom url"
+  },
+  {
+    "objectID": "index.html#storage-with-pins",
+    "href": "index.html#storage-with-pins",
+    "title": "Introducing shinystate",
+    "section": "Storage with {pins}",
+    "text": "Storage with {pins}\n\n\n\n\n\nControl where you store bookmarkable state files\nLeverages custom format capability\n\n\n\nboard &lt;- pins::board_s3(\"awesome-bucket\")\nstorage &lt;- StorageClass$new(board_sessions = board)\n\n\npins.rstudio.com\n\n\nExample pins board providers: * Posit Connect * S3 Object Storage (S3, Azure) * Google Drive / Dropbox / OneDrive * Online site (GitHub repo)"
+  },
+  {
+    "objectID": "index.html#thank-you",
+    "href": "index.html#thank-you",
+    "title": "Introducing shinystate",
+    "section": "Thank You!",
+    "text": "Thank You!\n\n\n R-Podcast\n R Weekly Highlights\n Shiny Developer Series\n @rpodcast\n eric-nantz\n rpodcast"
   },
   {
     "objectID": "index.html#from-all-directions",
@@ -67,6 +81,6 @@
     "href": "image_credits.html",
     "title": "",
     "section": "",
-    "text": "Collaboration image: https://www.piqsels.com/en/public-domain-photo-zknkx\nExample shiny app: https://shiny.posit.co/r/gallery/life-sciences/hospital-data-antimicrobial/\nPuzzly sharing: https://en.m.wikipedia.org/wiki/File:Puzzly_sharing_%28from_licensing_tutorial%29.svg\nLong receipt: https://www.wallpaperflare.com/business-receipt-lot-fold-on-gray-surface-receipts-pay-shopping-wallpaper-amruc/download/1920x1080\nstorage safe: https://openclipart.org/detail/162625/simple-strongbox"
+    "text": "Collaboration image: https://www.piqsels.com/en/public-domain-photo-zknkx\nExample shiny app: https://shiny.posit.co/r/gallery/life-sciences/hospital-data-antimicrobial/\nPuzzly sharing: https://en.m.wikipedia.org/wiki/File:Puzzly_sharing_%28from_licensing_tutorial%29.svg\nLong receipt: https://www.wallpaperflare.com/business-receipt-lot-fold-on-gray-surface-receipts-pay-shopping-wallpaper-amruc/download/1920x1080\nstorage safe: https://openclipart.org/detail/162625/simple-strongbox\nDr. Light https://wiki.megamanmaker.com/index.php?curid=1372\nDr. Wily https://wiki.megamanmaker.com/index.php?curid=624"
   }
 ]
