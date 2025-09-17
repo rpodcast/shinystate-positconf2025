@@ -12,6 +12,7 @@ author:
 date: September 17, 2025
 format:
   revealjs:
+    auto-play-media: true
     link-external-newwindow: true
     menu: true
     code-line-numbers: false
@@ -38,8 +39,14 @@ High-stakes Collaboration
 
 ![](assets/img/large_app.png)
 
-::: {,notes}
+::: {.footer}
+[RadaR Application](https://shiny.posit.co/r/gallery/life-sciences/hospital-data-antimicrobial/)
+:::
 
+
+::: {.notes}
+
+* Radar app (Christian Luz)
 * Complex apps with many inputs, toggles, that take more than one session to complete
 
 :::
@@ -62,7 +69,6 @@ High-stakes Collaboration
 ::: {.column width="30%"}
 
 * Capture state of application and restore at later point
-* Vitally important for complex user interface applications
 * Not quite everything I needed ...
 
 :::
@@ -125,15 +131,18 @@ Store as files in hosting server
 :::
 
 
-## The Big Idea Emerges: shinystate
+## Enter `{shinystate}` ![](assets/img/hex.png){width="10%" style="vertical-align: middle;"} 
 
-* Build upon existing Shiny Bookmarkable-state capability with key enhancements
-    * Granular Control
-    * Collaboration
+Supercharge Shiny's Bookmarkable-state capability with key enhancements
 
-## Enable `shinystate`
+* Granular control over storage location
+* Capability to add optional metadata
+* Object-oriented methods with `{R6}`
 
-```{.r code-line-numbers="|3|5|9|15|"}
+## Enable `shinystate` 
+
+::: {style="font-size: 1.1em"}
+```{.r code-line-numbers="|3|5|7,9|15|19"}
 library(shiny)
 library(bslib)
 library(shinystate)
@@ -151,7 +160,10 @@ server <- function(input, output, session) {
   storage$register_metadata()
   # additonal server logic
 }
+
+shinyApp(ui, server, enableBookmarking = "server")
 ```
+:::
 
 ::: {.notes}
 * `StorageClass$new()` initializes the R6 class for your shinystate bookmark sessions
@@ -160,7 +172,7 @@ server <- function(input, output, session) {
 * `storage$register_metadata()` handles registering custom `shiny::onBookmarked` callback
 :::
 
-## Save State
+## Saving Bookmarkable State 💾
 
 ::: {style="font-size: 1.4em" .fragment}
 ```{.r}
@@ -195,7 +207,7 @@ knitr::kable(session_df)
 :::
 
 
-## Restore State
+## Restoring Bookmarkable State 📂
 
 ::: {style="font-size: 1.4em"}
 ```{.r code-line-numbers="|1|2-4|6|"}
@@ -214,7 +226,7 @@ storage$restore(url)
 
 
 
-## Storage with `{pins}`
+## Storage with `{pins}` ![](assets/img/pins.png){width="8%" style="vertical-align: middle;"} 
 
 :::: {.columns}
 
@@ -253,11 +265,85 @@ Example pins board providers:
 * Online site (GitHub repo)
 :::
 
+## Power-up: Sharing Sessions
+
+:::: {.columns}
+
+::: {.column width="50%" .fragment}
+
+::: {style="text-align:center;"}
+![Dr. Light](assets/img/dr_light.png){width="50%"}
+:::
+
+:::
+
+::: {.column width="50%" .fragment}
+
+::: {style="text-align:center;"}
+![Dr. Wily](assets/img/dr_wily.png){width="70%"}
+:::
+
+:::
+
+::::
+
+---
+
+{{< video assets/img/megaman_app_light.mp4 >}}
+
+---
+
+{{< video assets/img/megaman_app_wily.mp4 >}}
+
+## Additional Benefits 🤔
+
+* Custom processing of session state artifacts
+* Traceability _within_ and _across_ user sessions
+* Inputs to automated reporting
+
+## Current and Future Work
+
+✅ Example applications from basic usage to Shiny modules
+
+✅ Package website with interactive apps powered by WebAssembly!
+
+⏳ CRAN submission (in queue)
+
+🛠 Compatability with `{golem}` and `{rhino}`
+
+## Relief in Sight {background-image="assets/img/roundabout_china_traffic.webp" background-size='60%'}
+
 ## Thank You!
 
 :::: {.columns}
 
-::: {.column width=50%}
+::: {.column width=60%}
+
+::: {style="font-size: 0.7em"}
+
+📦 **Documentation**:
+
+[rpodcast.github.io/shinystate](https://rpodcast.github.io/shinystate/)
+
+📦 **GitHub Repository**:
+
+[github.com/rpodcast/shinystate](https://github.com/rpodcast/shinystate)
+
+🏡 **Slides**: 
+
+[rpodcast.github.io/shinystate-positconf2025](https://rpodcast.github.io/shinystate-positconf2025/)
+
+:::
+
+![](assets/img/rpodcast-hexagon.png){width="20%"}
+
+:::
+
+::: {.column width=40%}
+
+::: {style="font-size: 0.7em"}
+
+**Let's Connect!**
 
 {{< fa solid microphone size=xl >}} [R-Podcast](https://r-podcast.org)
 
@@ -267,20 +353,13 @@ Example pins board providers:
 
 {{< fa brands mastodon size=xl >}} [\@rpodcast](https://podcastindex.org/@rpodcast)
 
+{{< fa brands bluesky size=xl >}} [\@rpodcast](https://bsky.app/profile/rpodcast.bsky.social)
+
 {{< fa brands linkedin size=xl >}} [eric-nantz](https://www.linkedin.com/in/eric-nantz-6621617/)
 
 {{< fa brands github size=xl >}} [rpodcast](https://github.com/rpodcast/)
 :::
 
-::: {.column width=50%}
-
-![](assets/img/rpodcast-hexagon.png)
-
 :::
 
 ::::
-
-
-# Backup
-
-## From All Directions {background-image="assets/img/roundabout_china_traffic.webp" background-size='60%'}
