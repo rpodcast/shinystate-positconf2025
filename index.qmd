@@ -91,7 +91,7 @@ High-stakes Collaboration
 
 `myapp.com/?_inputs_&_n=200&text=abc&....`
 
-![](assets/img/long_receipt.jpg)
+![](assets/img/metroid_password.webp){width=120%}
 
 :::
 
@@ -101,7 +101,9 @@ High-stakes Collaboration
 
 Store as files in hosting server
 
-![](assets/img/storage_safe.svg)
+<br>
+
+![](assets/img/storage_safe.svg){width=80%}
 
 :::
 
@@ -129,9 +131,9 @@ Store as files in hosting server
     * Granular Control
     * Collaboration
 
-## Enable `shinystate` (1) 
+## Enable `shinystate`
 
-```{.r code-line-numbers="|3|5|9"}
+```{.r code-line-numbers="|3|5|9|15|"}
 library(shiny)
 library(bslib)
 library(shinystate)
@@ -141,8 +143,13 @@ storage <- StorageClass$new()
 ui <- function(request) {
   page_sidebar(
     use_shinystate(),
-    # additoinal UI code
+    # additional UI code
   )
+}
+
+server <- function(input, output, session) {
+  storage$register_metadata()
+  # additonal server logic
 }
 ```
 
@@ -150,35 +157,64 @@ ui <- function(request) {
 * `StorageClass$new()` initializes the R6 class for your shinystate bookmark sessions
 * By default, a temporary directory is used to store bookmarkable state files
 * `use_shinystate()` injects required JavaScript bindings
+* `storage$register_metadata()` handles registering custom `shiny::onBookmarked` callback
 :::
 
-## Enable `shinystate` (2)
+## Save State
 
-```{.r code-line-numbers="|2|6-9|11-14"}
-server <- function(input, output, session) {
-  storage$register_metadata()
-
-  # additonal server logic
-
-  observeEvent(input$bookmark, {
-    storage$snapshot()
-    showNotification("Session successfully saved")
-  })
-
-  observeEvent(input$restore, {
-    session_df <- storage$get_sessions()
-    storage$restore(tail(session_df$url, n = 1))
-  })
-}
+::: {style="font-size: 1.4em" .fragment}
+```{.r}
+storage$snapshot(
+  metadata = list(
+    save_name = "exploring",
+    timestamp = Sys.time()
+  )
+)
 ```
+:::
+
+::: {.fragment}
+
+::: {style="font-size: 0.7em"}
+```{r}
+#| echo: false
+session_df <- readRDS("assets/r_files/session_df.rds")
+knitr::kable(session_df)
+```
+:::
+
+:::
+
+::: {style="font-size: 0.8em" .fragment}
+* `url`: Mapping to unique ID of session
+* Optional: list of metadata values
+:::
 
 ::: {.notes}
-* `storage$register_metadata()` handles registering custom `shiny::onBookmarked` callback
 * `storage$snapshot()` performs the bookmarking snapshot, wrapping `session$doBookmark()`. But you get to include optional metadata as a named list!
+:::
+
+
+## Restore State
+
+::: {style="font-size: 1.4em"}
+```{.r code-line-numbers="|1|2-4|6|"}
+session_df <- storage$get_sessions()
+url <- session_df |>
+  dplyr::filter(save_name == "exploring") |>
+  dplyr::pull(url)
+
+storage$restore(url)
+```
+:::
+
+::: {.notes}
 * `storage$restore()` loads the supplied bookmark state session by the custom url
 :::
 
-## Storage and Sharing with `{pins}`
+
+
+## Storage with `{pins}`
 
 :::: {.columns}
 
@@ -197,10 +233,12 @@ server <- function(input, output, session) {
 
 ::::
 
+::: {style="font-size: 1.5em" .fragment}
 ```{.r}
 board <- pins::board_s3("awesome-bucket")
 storage <- StorageClass$new(board_sessions = board)
 ```
+:::
 
 ::: footer
 [pins.rstudio.com](https://pins.rstudio.com/)
@@ -215,8 +253,34 @@ Example pins board providers:
 * Online site (GitHub repo)
 :::
 
+## Thank You!
+
+:::: {.columns}
+
+::: {.column width=50%}
+
+{{< fa solid microphone size=xl >}} [R-Podcast](https://r-podcast.org)
+
+{{< fa solid microphone size=xl >}} [R Weekly Highlights](https://serve.podhome.fm/r-weekly-highlights)
+
+{{< fa solid display >}} [Shiny Developer Series](https://shinydevseries.com)
+
+{{< fa brands mastodon size=xl >}} [\@rpodcast](https://podcastindex.org/@rpodcast)
+
+{{< fa brands linkedin size=xl >}} [eric-nantz](https://www.linkedin.com/in/eric-nantz-6621617/)
+
+{{< fa brands github size=xl >}} [rpodcast](https://github.com/rpodcast/)
+:::
+
+::: {.column width=50%}
+
+![](assets/img/rpodcast-hexagon.png)
+
+:::
+
+::::
 
 
 # Backup
 
-## From All Directions {background-image="assets/img/roundabout_china_traffic.webp" background-size='70%'}
+## From All Directions {background-image="assets/img/roundabout_china_traffic.webp" background-size='60%'}

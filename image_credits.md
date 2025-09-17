@@ -9,3 +9,7 @@ Long receipt: https://www.wallpaperflare.com/business-receipt-lot-fold-on-gray-s
 
 storage safe: https://openclipart.org/detail/162625/simple-strongbox
 
+Dr. Light https://wiki.megamanmaker.com/index.php?curid=1372
+
+Dr. Wily https://wiki.megamanmaker.com/index.php?curid=624
+
