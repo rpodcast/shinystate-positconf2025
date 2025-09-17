@@ -1,15 +1,4 @@
 ---
-title: "Introducing shinystate"
-subtitle: "Launching Shiny collaboration to new heights"
-author: 
-  - name: Eric Nantz
-    affiliation:
-      - Statistician / Developer / Podcaster
-      - Eli Lilly & Company
-      - "{{< fa brands bluesky >}} [@rpodcast.bsky.social](https://bsky.app/profile/rpodcast.bsky.social)"
-      - "{{< fa brands mastodon >}} [@rpodcast@podcastindex.social](https://podcastindex.social/@rpodcast)"
-      - "{{< fa brands linkedin >}} [@eric-nantz](https://www.linkedin.com/in/eric-nantz-6621617/)"
-date: September 17, 2025
 format:
   revealjs:
     auto-play-media: true
@@ -19,6 +8,39 @@ format:
     theme: [default, custom.scss]
     footer: "[rpodcast.github.io/shinystate-positconf2025/](https://rpodcast.github.io/shinystate-positconf2025/)"
 ---
+
+## {#titleslide data-menu-title="Title Slide"}
+
+<h2>Introducing shinystate</h2>
+<h4>Launching Shiny collaboration to new heights</h4>
+<br>
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+Eric Nantz
+
+Statistician / Developer / Podcaster
+
+Eli Lilly & Company
+
+{{< fa brands mastodon size=xl >}} [\@rpodcast](https://podcastindex.org/@rpodcast)
+
+{{< fa brands bluesky size=xl >}} [\@rpodcast](https://bsky.app/profile/rpodcast.bsky.social)
+
+{{< fa brands linkedin size=xl >}} [eric-nantz](https://www.linkedin.com/in/eric-nantz-6621617/)
+
+:::
+
+::: {.column width="30%"}
+
+{{< qrcode https://rpodcast.github.io/shinystate-positconf2025 qr1 width=200 height=200 >}}
+
+:::
+
+::::
+
 
 ## {background-image="assets/img/collaboration_meeting.jpg" background-size="contain"}
 
