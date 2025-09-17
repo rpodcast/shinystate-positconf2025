@@ -1,99 +1,106 @@
 [
   {
+    "objectID": "index.html#titleslide",
+    "href": "index.html#titleslide",
+    "title": "",
+    "section": "",
+    "text": "Introducing shinystate\n\n\nLaunching Shiny collaboration to new heights\n\n\n\n\nEric Nantz\nStatistician / Developer / Podcaster\nEli Lilly & Company\n @rpodcast\n @rpodcast\n eric-nantz"
+  },
+  {
     "objectID": "index.html#section",
     "href": "index.html#section",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "",
     "text": "High-stakes Collaboration\n\n\n\n\n\n\nNeed the answer quickly, but with all of these voices it can be overwhelming\nGet to the answer quickly, frantically toggling the settings"
   },
   {
     "objectID": "index.html#complex-applications",
     "href": "index.html#complex-applications",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "Complex Applications",
     "text": "Complex Applications\n\n\nRadaR Application\n\n\n\nRadar app (Christian Luz)\nComplex apps with many inputs, toggles, that take more than one session to complete"
   },
   {
     "objectID": "index.html#section-1",
     "href": "index.html#section-1",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "",
     "text": "Capture state of application and restore at later point\nNot quite everything I needed …\n\n\n\nBookmarkable State Introduction\n\n\n\nFeature landed in version 0.14 in 2016\nTwo methods: URL bookmarking and server-side bookmarking\nFor smaller applications, this may be good enough"
   },
   {
     "objectID": "index.html#section-2",
     "href": "index.html#section-2",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "",
     "text": "R/Pharma 2018 - rinpharma.com\n\n\n\nJoe Cheng - keynote at R/Pharma 2018 (Using interactivity responsibly in pharma)\nhttps://rinpharma.com/publication/rinpharma_32/\nVery slight customizatoins to bookmarkable state that got my creative juices flowing"
   },
   {
     "objectID": "index.html#enter-shinystate",
     "href": "index.html#enter-shinystate",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "Enter {shinystate} ",
     "text": "Enter {shinystate} \nSupercharge Shiny’s Bookmarkable-state capability with key enhancements\n\nGranular control over storage location\nCapability to add optional metadata\nObject-oriented methods with {R6}"
   },
   {
     "objectID": "index.html#enable-shinystate",
     "href": "index.html#enable-shinystate",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "Enable shinystate",
     "text": "Enable shinystate\n\nlibrary(shiny)\nlibrary(bslib)\nlibrary(shinystate)\n\nstorage &lt;- StorageClass$new()\n\nui &lt;- function(request) {\n  page_sidebar(\n    use_shinystate(),\n    # additional UI code\n  )\n}\n\nserver &lt;- function(input, output, session) {\n  storage$register_metadata()\n  # additonal server logic\n}\n\nshinyApp(ui, server, enableBookmarking = \"server\")\n\n\n\nStorageClass$new() initializes the R6 class for your shinystate bookmark sessions\nBy default, a temporary directory is used to store bookmarkable state files\nuse_shinystate() injects required JavaScript bindings\nstorage$register_metadata() handles registering custom shiny::onBookmarked callback"
   },
   {
     "objectID": "index.html#saving-bookmarkable-state",
     "href": "index.html#saving-bookmarkable-state",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "Saving Bookmarkable State 💾",
     "text": "Saving Bookmarkable State 💾\n\nstorage$snapshot(\n  metadata = list(\n    save_name = \"exploring\",\n    timestamp = Sys.time()\n  )\n)\n\n\n\n\n\n\n\n\nurl\nsave_name\ntimestamp\n\n\n\n\n?state_id=7c61d102e8b68a61\nexploring\n2025-09-16 13:14:07\n\n\n?state_id=92af5e9aeae226c7\nrefine\n2025-09-16 13:26:05\n\n\n?state_id=2b0a78b6da5f2f65\nfinalize\n2025-09-16 13:41:12\n\n\n\n\n\n\n\n\n\nurl: Mapping to unique ID of session\nOptional: list of metadata values\n\n\n\n\nstorage$snapshot() performs the bookmarking snapshot, wrapping session$doBookmark(). But you get to include optional metadata as a named list!"
   },
   {
     "objectID": "index.html#restoring-bookmarkable-state",
     "href": "index.html#restoring-bookmarkable-state",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "Restoring Bookmarkable State 📂",
     "text": "Restoring Bookmarkable State 📂\n\nsession_df &lt;- storage$get_sessions()\nurl &lt;- session_df |&gt;\n  dplyr::filter(save_name == \"exploring\") |&gt;\n  dplyr::pull(url)\n\nstorage$restore(url)\n\n\n\nstorage$restore() loads the supplied bookmark state session by the custom url"
   },
   {
     "objectID": "index.html#storage-with-pins",
     "href": "index.html#storage-with-pins",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "Storage with {pins} ",
     "text": "Storage with {pins} \n\n\n\n\n\nControl where you store bookmarkable state files\nLeverages custom format capability\n\n\n\nboard &lt;- pins::board_s3(\"awesome-bucket\")\nstorage &lt;- StorageClass$new(board_sessions = board)\n\n\npins.rstudio.com\n\n\nExample pins board providers: * Posit Connect * S3 Object Storage (S3, Azure) * Google Drive / Dropbox / OneDrive * Online site (GitHub repo)"
   },
   {
     "objectID": "index.html#power-up-sharing-sessions",
     "href": "index.html#power-up-sharing-sessions",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "Power-up: Sharing Sessions",
     "text": "Power-up: Sharing Sessions\n\n\n\n\n\n\nDr. Light\n\n\n\n\n\n\n\n\nDr. Wily"
   },
   {
     "objectID": "index.html#additional-benefits",
     "href": "index.html#additional-benefits",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "Additional Benefits 🤔",
     "text": "Additional Benefits 🤔\n\nCustom processing of session state artifacts\nTraceability within and across user sessions\nInputs to automated reporting"
   },
   {
     "objectID": "index.html#current-and-future-work",
     "href": "index.html#current-and-future-work",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "Current and Future Work",
     "text": "Current and Future Work\n✅ Example applications from basic usage to Shiny modules\n✅ Package website with interactive apps powered by WebAssembly!\n⏳ CRAN submission (in queue)\n🛠 Compatability with {golem} and {rhino}"
   },
   {
     "objectID": "index.html#relief-in-sight",
     "href": "index.html#relief-in-sight",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "Relief in Sight",
     "text": "Relief in Sight"
   },
   {
     "objectID": "index.html#thank-you",
     "href": "index.html#thank-you",
-    "title": "Introducing shinystate",
+    "title": "",
     "section": "Thank You!",
     "text": "Thank You!\n\n\n\n📦 Documentation:\nrpodcast.github.io/shinystate\n📦 GitHub Repository:\ngithub.com/rpodcast/shinystate\n🏡 Slides:\nrpodcast.github.io/shinystate-positconf2025\n\n\n\n\nLet’s Connect!\n R-Podcast\n R Weekly Highlights\n Shiny Developer Series\n @rpodcast\n @rpodcast\n eric-nantz\n rpodcast"
   },
